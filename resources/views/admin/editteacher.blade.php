@@ -8,8 +8,8 @@
                 <div class="col-sm-12">
                     <h4 class="pull-left page-title">Teacher Management</h4>
                     <ol class="breadcrumb pull-right">
-                        <li><a href="{{ route('all-teacher') }}">Teachers</a></li>
-                        <li class="active">Add Teacher</li>
+                        <li><a href="#">Teachers</a></li>
+                        <li class="active">Edit Teacher</li>
                     </ol>
                 </div>
             </div>
@@ -20,7 +20,7 @@
 	           <div class="col-md-2"></div>
                 <div class="col-md-8 ">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><h3 class="panel-title">Add Teacher</h3></div>
+                        <div class="panel-heading"><h3 class="panel-title">Edit Teacher</h3></div>
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -31,35 +31,35 @@
                             </div>
                         @endif
                         <div class="panel-body">
-                            <form role="form" action="{{ url('admin/insert-teacher') }}" method="post" enctype="multipart/form-data">
+                            <form role="form" action="{{ url('admin/update-teacher/'.$edit->id) }}" method="post" enctype="multipart/form-data">
                             	@csrf
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Teacher Name</label>
-                                    <input type="text" class="form-control" name="name" placeholder="Full Name" >
+                                    <input type="text" class="form-control" name="name" value="{{ $edit->name }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword20">Teacher Email</label>
-                                    <input type="email" class="form-control" name="email" placeholder="Email Address" >
+                                    <label for="exampleInputPassword21">Teacher Email</label>
+                                    <input type="text" class="form-control" name="email" value="{{ $edit->email }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword20">Teacher Password</label>
-                                    <input type="text" class="form-control" name="password" placeholder="Password" >
+                                    <label for="exampleInputPassword18">Teacher Phone Number</label>
+                                    <input type="text" class="form-control" name="phone" value="{{ $edit->phone }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword21"> Teacher Mobile Number</label>
-                                    <input type="text" class="form-control" name="phone" placeholder="Phone Number" >
+                                    <label for="exampleInputPassword17">Department</label>
+                                    <input type="text" class="form-control" name="department" value="{{ $edit->department }}">
                                 </div>
                                  <div class="form-group">
-                                    <label for="exampleInputPassword21"> Department </label>
-                                    <input type="text" class="form-control" name="department" placeholder="Department" >
+                                    <label for="exampleInputPassword12">Previous image</label>
+                                    <img style="width:80px;height:80px;" src="{{URL::to($edit->photo) }}" />
                                 </div>
                                 <div class="form-group">
-                                	<img id="image" style="width: 100px;height: 100px;margin-bottom:20px;" src="{{ URL::to('frontend/images/user.png') }}" />
-                                    <label for="exampleInputPassword11">Student Photo</label>
-                                    <input type="file"  name="photo" accept="image/*"   onchange="readURL(this);">
+                                    <label for="exampleInputPassword11">Update Image</label>
+                                	<img id="image" src="#" />
+                                    <input type="file"  name="photo" accept="image/*" onchange="readURL(this);">
                                 </div>
                               
-                                <button type="submit" class="btn btn-purple waves-effect waves-light">Add</button>
+                                <button type="submit" class="btn btn-purple waves-effect waves-light">Update</button>
                             </form>
                         </div><!-- panel-body -->
                     </div> <!-- panel -->

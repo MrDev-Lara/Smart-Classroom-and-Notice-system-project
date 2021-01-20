@@ -171,7 +171,7 @@
                                 </ul>
                             </div>
                             
-                            <p class="text-muted m-0">Administrator</p>
+                            <p class="text-muted m-0">Teacher Panel</p>
                         </div>
                     </div>
                     <!--- Divider -->
@@ -182,11 +182,11 @@
                             </li>
 
                             <li>
-                                <a href="calendar.html" class="waves-effect"><i class="md md-event"></i><span> Create Class </span></a>
+                                <a href="{{ route('create-class') }}" class="waves-effect"><i class="md md-event"></i><span> Create Class </span></a>
                             </li>
                            
                             <li>
-                                <a href="calendar.html" class="waves-effect"><i class="md md-event"></i><span> Manage class </span></a>
+                                <a href="{{ route('manage-class') }}" class="waves-effect"><i class="md md-event"></i><span> Manage class </span></a>
                             </li>
 
                              <li>

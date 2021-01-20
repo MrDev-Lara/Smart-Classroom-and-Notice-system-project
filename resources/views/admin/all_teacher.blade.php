@@ -53,7 +53,7 @@
                                                             <td>{{ $teacher->phone }}</td>
                                                             <td>{{ $teacher->department }}</td>
                                                             <td><img src="/{{ $teacher->photo }}" style="height:60px;width:60px;"/></td>
-                                                            <td><a href="" class="btn btn-sm btn-info">Edit</a> |
+                                                            <td><a href="{{ URL::to('admin/editteacher/'.$teacher->id) }}" class="btn btn-sm btn-info">Edit</a> |
                                                                 <a href="{{ URL::to('admin/deleteteacher/'.$teacher->id) }}" class="btn btn-sm btn-warning" id="delete">Delete</a> 
                                                             </td>
                                                         </tr>

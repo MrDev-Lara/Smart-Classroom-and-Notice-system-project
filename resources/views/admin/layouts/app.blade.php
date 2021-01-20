@@ -43,7 +43,7 @@
                 <!-- LOGO -->
                 <div class="topbar-left">
                     <div class="text-center">
-                        <a href="index.html" class="logo"><i class="md md-terrain"></i> <span>Moltran </span></a>
+                        <a href="index.html" class="logo"><img style="width:80px;height:70px;" src="{{ URL::to('frontend/images/iiuc.png') }}" alt="iiuc"></a>
                     </div>
                 </div>
                 <!-- Button mobile view to collapse sidebar menu -->
@@ -128,7 +128,7 @@
                                     <a href="#" class="right-bar-toggle waves-effect waves-light"><i class="md md-chat"></i></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="{{URL::to('frontend/images/users/avatar-1.jpg')}}" alt="user-img" class="img-circle"> </a>
+                                    <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="{{URL::to('frontend/images/user.png')}}" alt="user-img" class="img-circle"> </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> Profile</a></li>
                                         <li><a href="javascript:void(0)"><i class="md md-settings"></i> Settings</a></li>
@@ -157,7 +157,7 @@
                 <div class="sidebar-inner slimscrollleft">
                     <div class="user-details">
                         <div class="pull-left">
-                            <img src="{{ URL::to('frontend/images/users/avatar-1.jpg') }}" alt="" class="thumb-md img-circle">
+                            <img src="{{ URL::to('frontend/images/user.png') }}" alt="" class="thumb-md img-circle">
                         </div>
                         <div class="user-info">
                             <div class="dropdown">
@@ -189,11 +189,12 @@
                                 </ul>
                             </li>
 
+
                             <li class="has_sub">
                                 <a href="#" class="waves-effect"><i class="md md-palette"></i> <span> Manage Teachers </span> <span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="{{ route('add-teacher') }}">Add Teacher</a></li>
-                                    <li><a href="{{ route('all-teacher') }}">All Teachers</a></li>
+                                    <li class="{{ (request()->is('admin/add-teacher')) ? 'active' : '' }}"><a href="{{ route('add-teacher') }}">Add Teacher</a></li>
+                                    <li class="{{ (request()->is('admin/all-teacher')) ? 'active' : '' }}"><a href="{{ route('all-teacher') }}">All Teachers</a></li>
                                 </ul>
                             </li>
 

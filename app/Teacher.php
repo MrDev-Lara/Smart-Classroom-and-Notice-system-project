@@ -48,4 +48,8 @@ class Teacher extends Authenticatable
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    public function rooms(){
+        return $this->hasMany(Room::class);
+    }
 }

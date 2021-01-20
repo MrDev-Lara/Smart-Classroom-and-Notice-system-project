@@ -43,7 +43,7 @@
                 <!-- LOGO -->
                 <div class="topbar-left">
                     <div class="text-center">
-                        <a href="index.html" class="logo"><i class="md md-terrain"></i> <span>Moltran </span></a>
+                        <a href="index.html" class="logo"><img style="width:80px;height:70px;" src="{{ URL::to('frontend/images/iiuc.png') }}" alt="iiuc"></a>
                     </div>
                 </div>
                 <!-- Button mobile view to collapse sidebar menu -->
@@ -128,9 +128,9 @@
                                     <a href="#" class="right-bar-toggle waves-effect waves-light"><i class="md md-chat"></i></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="{{URL::to('frontend/images/users/avatar-1.jpg')}}" alt="user-img" class="img-circle"> </a>
+                                    <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="{{ Auth::user()->photo }}" alt="user-img" class="img-circle"> </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> Profile</a></li>
+                                        <li><a href="{{ route('my-profile') }}"><i class="md md-face-unlock"></i> Profile</a></li>
                                         <li><a href="javascript:void(0)"><i class="md md-settings"></i> Settings</a></li>
                                         <li><a href="javascript:void(0)"><i class="md md-lock"></i> Lock screen</a></li>
                                         <li><a href="{{ route('admin.logout') }}"
@@ -157,13 +157,13 @@
                 <div class="sidebar-inner slimscrollleft">
                     <div class="user-details">
                         <div class="pull-left">
-                            <img src="{{ URL::to('frontend/images/users/avatar-1.jpg') }}" alt="" class="thumb-md img-circle">
+                            <img src="{{ Auth::user()->photo }}" alt="" class="thumb-md img-circle">
                         </div>
                         <div class="user-info">
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> Profile<div class="ripple-wrapper"></div></a></li>
+                                    <li><a href="{{ route('my-profile') }}"><i class="md md-face-unlock"></i> Profile<div class="ripple-wrapper"></div></a></li>
                                     <li><a href="javascript:void(0)"><i class="md md-settings"></i> Settings</a></li>
                                     <li><a href="javascript:void(0)"><i class="md md-lock"></i> Lock screen</a></li>
                                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -171,7 +171,7 @@
                                 </ul>
                             </div>
                             
-                            <p class="text-muted m-0">Administrator</p>
+                            <p class="text-muted m-0">{{ Auth::user()->student_id }}</p>
                         </div>
                     </div>
                     <!--- Divider -->
@@ -219,6 +219,7 @@
         <main class="py-4">
             @yield('content')
         </main>
+        
     </div>
            <script>
             var resizefunc = [];
@@ -331,3 +332,4 @@
     </script>
 </body>
 </html>
+

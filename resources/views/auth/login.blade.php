@@ -15,11 +15,11 @@
 
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control input-lg{{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" type="email" required="" autofocus placeholder="Email Address" name="email" value="{{ old('email') }}">
+                            <input class="form-control input-lg{{ $errors->has('student_id') ? ' is-invalid' : '' }}" id="student_id" type="text" required="" autofocus placeholder="Student ID" name="student_id" value="{{ old('student_id') }}">
 
-                            @if ($errors->has('email'))
+                            @if ($errors->has('student_id'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('student_id') }}</strong>
                                     </span>
                             @endif
                         </div>
