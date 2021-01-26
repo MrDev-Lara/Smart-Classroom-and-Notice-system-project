@@ -40,4 +40,8 @@ class User extends Authenticatable
     public function userdetail(){
         return $this->hasOne(Userdetail::class);
     }
+
+    public function rooms(){
+        return $this->belongsToMany(Room::class)->withTimestamps();
+    }
 }

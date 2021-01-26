@@ -17,6 +17,10 @@ Route::middleware('auth')->group(function() {
 	Route::post('/add-information', 'StudentController@setInformation')->name('add-information');
 	Route::post('/update-information/{id}', 'StudentController@updateInformation');
 	Route::post('/update-privacy/{id}', 'StudentController@updatePrivacy');
+	Route::get('/join-class', 'ClassController@index')->name('join-class');
+	Route::post('/join-room', 'ClassController@joinRoom');
+	Route::get('/all-joined-class', 'ClassController@allJoinedClass')->name('all-joined-class');
+	Route::get('/show-joined-class/{id}', 'ClassController@showJoinedClass');
 });
 
 
@@ -77,5 +81,14 @@ Route::namespace('Teacher')->prefix('teacher')->group(function() {
 		Route::get('create-class', 'RoomController@showForm')->name('create-class');
 		Route::post('insert-class', 'RoomController@insertRoom');
 		Route::get('manage-class', 'RoomController@showClassbyId')->name('manage-class');
+		Route::get('edit-class/{id}', 'RoomController@editClassbyId');
+		Route::post('update-class/{id}', 'RoomController@updateClass');
+		Route::get('view-class-student/{id}', 'RoomController@viewClassStudents');
+		Route::get('view-student/{id}', 'RoomController@viewJoinedStudentProfile');
+		Route::get('remove-student/{user_id}/{room_id}', 'RoomController@removeStudentByClass');
+		Route::get('post-class/{id}', 'RoomController@postClassbyId');
+		Route::post('insert-post-by-class-id', 'RoomController@insertPostByRoomId');
+		Route::get('view-post-attachments/{id}', 'RoomController@viewPostAttachmentsById');
+		Route::post('insert-comment-by-post', 'RoomController@insertComment');
 	});
 });

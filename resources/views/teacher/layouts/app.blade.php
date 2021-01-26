@@ -19,6 +19,8 @@
         <link href="{{ asset('frontend/css/animate.css') }}" rel="stylesheet" />
         <!-- Waves-effect -->
         <link href="{{ asset('frontend/css/waves-effect.css') }}" rel="stylesheet">
+        <!-- Dropzone css -->
+        <link href="{{ asset('frontend/assets/dropzone/dropzone.css') }}" rel="stylesheet" type="text/css" />
         <!-- Custom Files -->
         <link href="{{ asset('frontend/css/helper.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet" type="text/css" />
@@ -266,7 +268,8 @@
 
         <!-- Chat -->
 {{--         <script src="{{ asset('frontend/js/jquery.chat.js') }}"></script> --}}
-
+        <!-- Page Specific JS Libraries -->
+         <script src="{{ asset('frontend/assets/dropzone/dropzone.min.js') }}"></script>
         <!-- Todo -->
         {{-- <script src="{{ asset('frontend/js/jquery.todo.js') }}"></script> --}}
         <script src="{{ asset('frontend/assets/datatables/jquery.dataTables.min.js') }}"></script>

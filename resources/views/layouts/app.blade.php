@@ -128,7 +128,7 @@
                                     <a href="#" class="right-bar-toggle waves-effect waves-light"><i class="md md-chat"></i></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="{{ Auth::user()->photo }}" alt="user-img" class="img-circle"> </a>
+                                    <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="/{{ Auth::user()->photo }}" alt="user-img" class="img-circle"> </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="{{ route('my-profile') }}"><i class="md md-face-unlock"></i> Profile</a></li>
                                         <li><a href="javascript:void(0)"><i class="md md-settings"></i> Settings</a></li>
@@ -157,7 +157,7 @@
                 <div class="sidebar-inner slimscrollleft">
                     <div class="user-details">
                         <div class="pull-left">
-                            <img src="{{ Auth::user()->photo }}" alt="" class="thumb-md img-circle">
+                            <img src="/{{ Auth::user()->photo }}" alt="" class="thumb-md img-circle">
                         </div>
                         <div class="user-info">
                             <div class="dropdown">
@@ -182,11 +182,11 @@
                             </li>
 
                             <li>
-                                <a href="calendar.html" class="waves-effect"><i class="md md-event"></i><span> Manage Joined Classes </span></a>
+                                <a href="{{ route('all-joined-class') }}" class="waves-effect"><i class="md md-event"></i><span> Manage Joined Classes </span></a>
                             </li>
                            
                             <li>
-                                <a href="calendar.html" class="waves-effect"><i class="md md-event"></i><span> Join New Class </span></a>
+                                <a href="{{ route('join-class') }}" class="waves-effect"><i class="md md-event"></i><span> Join New Class </span></a>
                             </li>
 
                             <li class="has_sub">
