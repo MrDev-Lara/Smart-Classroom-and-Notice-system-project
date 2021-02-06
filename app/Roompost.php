@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Roompost extends Model
 {
     protected $fillable = [
@@ -17,4 +18,5 @@ class Roompost extends Model
     public function roompostcomments(){
         return $this->hasMany(Roompostcomment::class);
     }
+
 }

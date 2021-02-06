@@ -192,7 +192,7 @@
                             </li>
 
                              <li>
-                                <a href="calendar.html" class="waves-effect"><i class="md md-event"></i><span> Post a Notice </span></a>
+                                <a href="{{ route('post-notice') }}" class="waves-effect"><i class="md md-event"></i><span> Post a Notice </span></a>
                             </li>
 
                             <li class="has_sub">
@@ -333,6 +333,38 @@
                   } else {
                     swal("Safe Data!");
                   }
+                });
+            });
+
+         $(document).on("click", "#deletepost", function(e){
+             e.preventDefault();
+             var link = $(this).attr("href");
+                swal({
+                  title: "Do you Want to delete the Post?",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((willDelete) => {
+                  if (willDelete) {
+                       window.location.href = link;
+                  } 
+                });
+            });
+
+         $(document).on("click", "#deletecomment", function(e){
+             e.preventDefault();
+             var link = $(this).attr("href");
+                swal({
+                  title: "Do you Want to delete the Comment?",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((willDelete) => {
+                  if (willDelete) {
+                       window.location.href = link;
+                  } 
                 });
             });
     </script>

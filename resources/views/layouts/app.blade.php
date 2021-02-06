@@ -188,7 +188,9 @@
                             <li>
                                 <a href="{{ route('join-class') }}" class="waves-effect"><i class="md md-event"></i><span> Join New Class </span></a>
                             </li>
-
+                            <li>
+                                <a href="{{ route('notice-board') }}" class="waves-effect"><i class="md md-event"></i><span>Notice Board</span></a>
+                            </li>
                             <li class="has_sub">
                                 <a href="#" class="waves-effect"><i class="md md-palette"></i> <span> Elements </span> <span class="pull-right"><i class="md md-add"></i></span></a>
                                 <ul class="list-unstyled">
@@ -327,6 +329,22 @@
                   } else {
                     swal("Safe Data!");
                   }
+                });
+            });
+
+         $(document).on("click", "#deletecomment", function(e){
+             e.preventDefault();
+             var link = $(this).attr("href");
+                swal({
+                  title: "Do you Want to delete the Comment?",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((willDelete) => {
+                  if (willDelete) {
+                       window.location.href = link;
+                  } 
                 });
             });
     </script>

@@ -21,6 +21,17 @@ Route::middleware('auth')->group(function() {
 	Route::post('/join-room', 'ClassController@joinRoom');
 	Route::get('/all-joined-class', 'ClassController@allJoinedClass')->name('all-joined-class');
 	Route::get('/show-joined-class/{id}', 'ClassController@showJoinedClass');
+	Route::get('/access-to-classroom/{id}', 'ClassController@acessClassroom');
+	Route::get('/view-post-attachments-by-student/{id}', 'ClassController@viewStudentPostAttachmentsById');
+	Route::get('deletecomment/{id}', 'ClassController@deleteStudentComment');
+	Route::post('insert-comment-by-post', 'ClassController@insertStudentComment');
+	Route::get('view-assignments/{id}', 'ClassController@viewAssignmentByClass');
+	Route::get('submit-assignment/{id}', 'ClassController@submitAssignment');
+	Route::post('submit-assignment-answer', 'ClassController@submitAssignmentAnswer');
+	Route::get('delete-assignment/{id}', 'ClassController@deleteStudentAssignment');
+	Route::get('notice-board', 'ClassController@showAllNotices')->name('notice-board');
+	Route::get('view-notice/{id}', 'ClassController@viewNotice');
+
 });
 
 
@@ -41,11 +52,6 @@ Route::namespace('Admin')->prefix('admin')->group(function() {
 		Route::get('deletestudent/{id}', 'StudentController@deletestudent');
 		Route::get('editstudent/{id}', 'StudentController@editstudent');
 		Route::post('update-student/{id}', 'StudentController@updatestudent');
-
-		//For Student Skill Set
-		Route::get('set-student-skill-set', 'StudentskillsetController@studentSkillSet')->name('set-student-skill-set');
-		Route::post('insert-student-skill-set', 'StudentskillsetController@insertStudentskillset');
-		Route::get('all-skill-set', 'StudentskillsetController@studentskilllist')->name('all-skill-set');
 
 		//For Teacher
 		Route::get('add-teacher', 'TeacherController@teacher')->name('add-teacher');
@@ -90,5 +96,31 @@ Route::namespace('Teacher')->prefix('teacher')->group(function() {
 		Route::post('insert-post-by-class-id', 'RoomController@insertPostByRoomId');
 		Route::get('view-post-attachments/{id}', 'RoomController@viewPostAttachmentsById');
 		Route::post('insert-comment-by-post', 'RoomController@insertComment');
+		Route::get('deletepost/{id}', 'RoomController@deletePost');
+		Route::get('deletecomment/{id}', 'RoomController@deleteComment');
+		Route::get('take-attendance/{id}', 'RoomController@takeAttendance');
+
+		//Attendance Routes
+		Route::post('insert-class-attendance/{id}', 'AttendanceController@insertAttendance');
+		Route::get('view-attendance/{id}', 'AttendanceController@viewAttendance');
+		Route::get('view-student-attendance/{room_id}/{attend_date}', 'AttendanceController@viewStudentAttendanceByDate');
+		Route::get('delete-student-attendance/{room_id}/{attend_date}', 'AttendanceController@deleteStudentAttendanceByDate');
+		Route::get('edit-student-attendance/{room_id}/{attend_date}', 'AttendanceController@editStudentAttendanceByDate');
+		Route::post('update-student-attendance/{room_id}/{attend_date}', 'AttendanceController@updateAttendance');
+
+		//Assignment Routes
+		Route::get('assignments/{id}', 'AssignmentController@index');
+		Route::post('post-assignment', 'AssignmentController@postAssignment');
+		Route::get('all-assignments/{id}', 'AssignmentController@allAssignments');
+		Route::get('view-assignment-submission/{id}', 'AssignmentController@allAssignmentsubmission');
+
+		//Notice Routes
+		Route::get('post-notice', 'NoticeController@index')->name('post-notice');
+		Route::post('submit-notice', 'NoticeController@submitNotice');
+		Route::get('my-notice/{id}', 'NoticeController@myNotice');
+		Route::get('view-notice/{id}', 'NoticeController@viewNotice');
+		Route::get('all-notice', 'NoticeController@allNotice');
+		Route::get('deletenotice/{id}', 'NoticeController@deleteNotice');
+
 	});
 });

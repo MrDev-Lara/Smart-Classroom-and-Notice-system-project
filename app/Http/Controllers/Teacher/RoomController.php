@@ -10,6 +10,7 @@ use DB;
 use App\Room;
 use App\Roompost;
 use App\Roompostfile;
+use App\Roompostcomment;
 
 class RoomController extends Controller
 {
@@ -213,4 +214,58 @@ class RoomController extends Controller
                  return Redirect()->back()->with($notification);
              } 
     }
+
+    public function deletePost($id){
+        $attachments = DB::table('roompostfiles')->where('roompost_id',$id)->get();
+        if($attachments){
+            foreach($attachments as $attachment){
+                $file = $attachment->file;
+                unlink($file);
+                $done = DB::table('roompostfiles')->where('roompost_id',$id)->delete();
+                }
+        }
+        $comments = DB::table('roompostcomments')->where('roompost_id',$id)->get();
+        if($comments){
+            foreach($comments as $comment){
+                $done = DB::table('roompostcomments')->where('roompost_id',$id)->delete();
+            }
+        }
+        $post = Roompost::find($id);
+        $success = $post->delete();
+        if($success){
+            $notification=array(
+                 'message'=>'Post Successfully Deleted',
+                 'alert-type'=>'success'
+                  );
+                return Redirect()->route('manage-class')->with($notification);    
+            }else{
+                $notification=array(
+                 'message'=>'Could not be able to delete the Post',
+                 'alert-type'=>'error'
+                  );
+                 return Redirect()->back()->with($notification);
+            }
+     }     
+     public function deleteComment($id){
+        $comment = Roompostcomment::find($id);
+        $success = $comment->delete();
+        if($success){
+            $notification=array(
+                 'message'=>'Comment Successfully Deleted',
+                 'alert-type'=>'success'
+                  );
+                return Redirect()->back()->with($notification);    
+            }else{
+                $notification=array(
+                 'message'=>'Could not be able to delete the Comment',
+                 'alert-type'=>'error'
+                  );
+                 return Redirect()->back()->with($notification);
+            }
+     } 
+
+     public function takeAttendance($id){
+        $students = Room::with('users')->where('id',$id)->first();
+        return view('teacher/take_attendance',compact('students'));
+     }
 }

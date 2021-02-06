@@ -10,6 +10,7 @@
                         <div class="panel panel-default panel-fill">
                             <div class="panel-heading"> 
                                 <h3 class="panel-title"><img class="thumb-md img-circle" src="/{{ Auth::guard('teacher')->user()->photo }}"/><span style="margin-left:20px;">{{ Auth::guard('teacher')->user()->name }}</span>
+                                <a id="deletepost" href="{{ URL::to('teacher/deletepost/'.$roomposts->id) }}"><span style="float:right;margin-top:20px;" class="glyphicon glyphicon-trash"></span></a>
                                 </h3> 
                                 <p style="margin-left: 68px;margin-top: -13px;">Posted at : {{ $roomposts->date }}</p>
                             </div> 
@@ -38,6 +39,7 @@
                                     @endphp
                                     <div style="margin-bottom:20px;">
                                         <h4 class="panel-title"><img style="width:35px;height:35px;" class="thumb-md img-circle" src="/{{ Auth::guard('teacher')->user()->photo }}"/><span style="margin-left:10px;font-size:12px;font-color:black;">{{ Auth::guard('teacher')->user()->name }} <span style="font-size:9px;margin-left:9px;"> {{ $roompostcomment->date }} (teacher) </span></span>
+                                            <a id="deletecomment" href="{{ URL::to('teacher/deletecomment/'.$roompostcomment->id) }}"><span style="float:right;margin-top:20px;" class="glyphicon glyphicon-trash"></span></a>
                                         </h4> 
                                         <p style="margin-left: 45px;margin-top: -10px;">{{ $roompostcomment->comment }}</p>
                                     </div>
@@ -46,7 +48,8 @@
                                         $student = DB::table('users')->where('id',$student_id)->first();
                                     @endphp
                                      <div style="margin-bottom:20px;">
-                                        <h4 class="panel-title"><img style="width:35px;height:35px;" class="thumb-md img-circle" src="/{{ $student->photo }}"/><span style="margin-left:10px;font-size:12px;font-color:black;">{{ $student->name }} <span style="font-size:9px;margin-left:9px;"> 26 jan (student)</span></span>
+                                        <h4 class="panel-title"><img style="width:35px;height:35px;" class="thumb-md img-circle" src="/{{ $student->photo }}"/><span style="margin-left:10px;font-size:12px;font-color:black;">{{ $student->name }} <span style="font-size:9px;margin-left:9px;"> {{ $roompostcomment->date }} (student)</span></span>
+                                            <a id="deletecomment" href="{{ URL::to('teacher/deletecomment/'.$roompostcomment->id) }}"><span style="float:right;margin-top:20px;" class="glyphicon glyphicon-trash"></span></a>
                                         </h4> 
                                         <p style="margin-left: 45px;margin-top: -10px;">{{ $roompostcomment->comment }}</p>
                                     </div>

@@ -66,7 +66,9 @@
                             <div style="margin-top:20px;">
                                 <a href="{{ URL::to('teacher/view-class-student/'.$room->id) }}" class="btn btn-danger">View Joined Student</a>
                                 <a href="{{ URL::to('teacher/post-class/'.$room->id) }}" class="btn btn-info">Post</a>
-                                <a href="{{ URL::to('teacher/edit-class/'.$room->id) }}" class="btn btn-success">Edit CLass</a>
+                                <a href="{{ URL::to('teacher/take-attendance/'.$room->id) }}" class="btn btn-primary">Take today's Attendance</a>
+                                <a href="{{ URL::to('teacher/assignments/'.$room->id) }}" class="btn btn-success">Assignments</a>
+                                <a href="{{ URL::to('teacher/edit-class/'.$room->id) }}" class="btn btn-danger">Edit CLass</a>
                             </div>
                         </div> 
                     </div>
