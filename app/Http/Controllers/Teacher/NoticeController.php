@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use DB;
+use App\Notice;
+use App\Teacher;
+use App\User;
+use App\Events\NoticeAnnouncement;
+use Illuminate\Support\Facades\Mail;
+
 
 class NoticeController extends Controller
 {
@@ -38,22 +44,28 @@ class NoticeController extends Controller
             $success=$image->move($upload_path,$image_full_name);
             if ($success) {
                 $data['notice_file']=$image_url;
-                $notice = DB::table('notices')
-                         ->insert($data);
-              if ($notice) {
+                $notices = DB::table('notices')
+                         ->insertGetId($data);
+
+                 $notice = Notice::find($notices);
+                 $teacher = Teacher::find($notice->teacher_id);
+                 $user = User::all();
+
+                 event(new NoticeAnnouncement($notice,$teacher));
+                    
+                 if ($notices) {
                  $notification=array(
                  'message'=>'Notice Posted Successfully',
                  'alert-type'=>'success'
                   );
-                return Redirect()->back()->with($notification);                      
+                return Redirect()->back()->with($notification);                     
              }else{
               $notification=array(
                  'message'=>'Could not be able to post the Notice',
                  'alert-type'=>'error'
                   );
                  return Redirect()->back()->with($notification);
-             }      
-                
+             }  
             }else{
 
               return Redirect()->back();

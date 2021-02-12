@@ -11,6 +11,8 @@ use App\Room;
 use App\Roompost;
 use App\Roompostfile;
 use App\Roompostcomment;
+use App\Events\TeacherPostAnnouncement;
+use Illuminate\Support\Facades\Mail;
 
 class RoomController extends Controller
 {
@@ -142,6 +144,10 @@ class RoomController extends Controller
 
         if($files){
             $success = DB::table('roomposts')->insertGetId($data);
+            $roompost = Roompost::find($success);
+            $room = Room::with('users')->find($roompost->room_id);
+            event(new TeacherPostAnnouncement($roompost,$room));
+
             foreach($files as $file)
             {
                 $file_name= str::random(5);
@@ -168,7 +174,10 @@ class RoomController extends Controller
                          return Redirect()->back()->with($notification);
                      }  
         }else{
-            $student = DB::table('roomposts')->insert($data);
+            $student = DB::table('roomposts')->insertGetId($data);
+            $roompost = Roompost::find($student);
+            $room = Room::with('users')->find($roompost->room_id);
+            event(new TeacherPostAnnouncement($roompost,$room));
               if ($student) {
                  $notification=array(
                  'message'=>'Post Successfully Inserted',

@@ -9,6 +9,9 @@ use App\Room;
 use App\Assignment;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use App\Events\TeacherPostAssignment;
+use App\User;
+use Illuminate\Support\Facades\Mail;
 
 class AssignmentController extends Controller
 {
@@ -47,21 +50,27 @@ class AssignmentController extends Controller
             $success=$file->move($upload_path,$file_full_name);
             if ($success) {
                 $data['assignment_file']=$file_url;
-                $assignments = DB::table('assignments')
-                         ->insert($data);
-              if ($assignments) {
-                 $notification=array(
-                 'message'=>'Assignment Successfully Posted',
-                 'alert-type'=>'success'
-                  );
-                return Redirect()->back()->with($notification);                      
-             }else{
-              $notification=array(
-                 'message'=>'Could not be able to add the Assignment ',
-                 'alert-type'=>'error'
-                  );
-                 return Redirect()->back()->with($notification);
-             }       
+                $assignment_id = DB::table('assignments')
+                         ->insertGetId($data);
+
+                $assignment = Assignment::find($assignment_id);
+
+                $room = Room::with('users')->find($assignment->room_id);
+                event(new TeacherPostAssignment($assignment,$room));
+                
+                if($assignment_id){
+                  $notification=array(
+                         'message'=>'Your Assignment Have been Posted Successfully',
+                         'alert-type'=>'success'
+                          );
+                      return Redirect()->back()->with($notification); 
+                 }else{
+                  $notification=array(
+                         'message'=>'Sorry,Could not be able to post the Assignment this time.Try Again Later.',
+                         'alert-type'=>'error'
+                          );
+                      return Redirect()->back()->with($notification); 
+                 }
             }else{
 
               return Redirect()->back();
