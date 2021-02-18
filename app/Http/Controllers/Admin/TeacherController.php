@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
+use App\Events\TeacherRegistration;
+use Illuminate\Support\Facades\Mail;
 use DB;
 use App\Admin;
 use App\Teacher;
@@ -23,8 +25,8 @@ class TeacherController extends Controller
     {
       $validatedData = $request->validate([
         'name' => 'required|max:255',
-        'email' => 'required|unique:users|max:255',
-        'password' => 'required|max:25',
+        'email' => 'required|unique:teachers|max:255',
+        'password' => 'required|max:35',
         'phone' => 'required|max:11',
         'department' => 'required',
         'photo' => 'required',
@@ -47,9 +49,12 @@ class TeacherController extends Controller
             $success=$image->move($upload_path,$image_full_name);
             if ($success) {
                 $data['photo']=$image_url;
-                $teacher = DB::table('teachers')
-                         ->insert($data);
-              if ($teacher) {
+                $teacher_id = DB::table('teachers')
+                         ->insertGetId($data);
+
+                $teacher = Teacher::find($teacher_id);
+                event(new TeacherRegistration($teacher));
+              if ($teacher_id) {
                  $notification=array(
                  'message'=>'Teacher Successfully Added',
                  'alert-type'=>'success'

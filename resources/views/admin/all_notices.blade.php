@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('content')
 
 <div class="content-page">
@@ -8,17 +8,17 @@
             <div class="row">
                
                                 
-                            
+                                @foreach($allnotices as $allnotice)
                                         <div class="col-lg-12">
                                             <div class="panel panel-inverse panel-fill">
                                                 <div class="panel-heading"> 
                                                     @php
-                                                        if($viewnotices->admin_id == null){
-                                                        $teacher = DB::table('teachers')->where('id',$viewnotices->teacher_id)->first();
+                                                        if($allnotice->admin_id == null){
+                                                        $teacher = DB::table('teachers')->where('id',$allnotice->teacher_id)->first();
                                                     @endphp
                                                     <h3 class="panel-title"><img class="thumb-md img-circle" src="/{{ $teacher->photo }}"/><span style="margin-left:20px;">{{ $teacher->name }}</span>
                                                     </h3> 
-                                                    @php
+                                                     @php
                                                        }else{
                                                     @endphp
                                                         <h3 class="panel-title"><img class="thumb-md img-circle" src="{{URL::to('frontend/images/user.png')}}"/><span style="margin-left:20px;">IIUC</span>
@@ -26,34 +26,44 @@
                                                     @php
                                                        }
                                                     @endphp
-                                                    <p style="margin-left: 68px;margin-top: -13px;">Posted at : {{ $viewnotices->notice_post_date }} {{ $viewnotices->notice_post_time }}</p>
+                                                    <p style="margin-left: 68px;margin-top: -13px;">Posted at : {{ $allnotice->notice_post_date }} {{ $allnotice->notice_post_time }}</p>
+                                                    <a id="deletenotice" href="{{ URL::to('admin/deletenotices/'.$allnotice->id) }}"><span style="float:right;margin-top:-40px;color:white;" class="glyphicon glyphicon-trash"></span></a>
                                                 </div> 
                                                 <div class="panel-body"> 
-                                                    <h3 style="color:white;">{{ $viewnotices->notice_title }}</h3> 
+                                                    <h3 style="color:white;">{{ $allnotice->notice_title }}</h3> 
 
 
-                                                    <p>{{ $viewnotices->notice_description }}</p>
+                                                    <?php $string = $allnotice->notice_description;
+                                                    if (strlen($string) > 500) {
+                                                    $trimstring = substr($string, 0, 470). "<a style='color:white;text-decoration:underline;font-size:18px;margin-left:10px;' href='/admin/view-notices/$allnotice->id' >Read More ...</a>";
+                                                    } else {
+                                                    $trimstring = $string;
+                                                    }
+                                                    echo $trimstring;
+                                                    //Output : Lorem Ipsum is simply dum [readmore...][1]
+                                                    ?>
 
 
                                                     
                                                     <h4 style="margin-top:30px;color:white;"><b>Attachments</b></h4> 
                                                     @php
-                                                        $attachments = $viewnotices->notice_file;
+                                                        $attachments = $allnotice->notice_file;
                                                         if($attachments == null){
                                                     @endphp
-                                                    <p><i class="fa fa-bookmark"></i> No Attachment Attached</p>
+                                                    <p><i class="fa fa-bookmark"></i> No Attachment</p>
                                                     @php }else{ @endphp
-                                                    <p><a target="_blank" href="/{{ $viewnotices->notice_file }}"><img style="width:200px;height:100px;" src="/{{ $viewnotices->notice_file }}"/></a></p>
+                                                    <p><i class="fa fa-bookmark"></i> <a href="/{{ $allnotice->notice_file }}" target="_blank" style="color:white;text-decoration: underline"> 1 Attachment </a></p>
                                                     @php } @endphp
                                                 </div> 
                                             </div>
                                         </div>
                                         
+                                @endforeach
+                                    <div style="float:right;">{{ $allnotices->links() }}</div>
                            
             </div>
         </div>
     </div>
 </div>
-
 
 @endsection

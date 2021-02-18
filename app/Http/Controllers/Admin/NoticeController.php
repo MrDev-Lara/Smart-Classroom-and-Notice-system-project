@@ -1,23 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Teacher;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
-use DB;
 use App\Notice;
-use App\Teacher;
-use App\User;
-use App\Events\NoticeAnnouncement;
+use App\Events\NoticePostByAdmin;
 use Illuminate\Support\Facades\Mail;
-
 
 class NoticeController extends Controller
 {
-    public function index(){
-    	return view('teacher/post_notice');
+     public function index(){
+    	return view('admin/post_notice');
     }
 
     public function submitNotice(Request $request){
@@ -28,7 +25,7 @@ class NoticeController extends Controller
         ]);
 
         $data=array();
-        $data['teacher_id']=$request->teacher_id;
+        $data['admin_id']=$request->admin_id;
         $data['notice_title']=$request->notice_title;
         $data['notice_description']=$request->notice_description;
         $data['notice_post_date']=$request->notice_post_date;
@@ -44,16 +41,13 @@ class NoticeController extends Controller
             $success=$image->move($upload_path,$image_full_name);
             if ($success) {
                 $data['notice_file']=$image_url;
-                $notices = DB::table('notices')
+                $notice_id = DB::table('notices')
                          ->insertGetId($data);
 
-                 $notice = Notice::find($notices);
-                 $teacher = Teacher::find($notice->teacher_id);
-                 $user = User::all();
+                 $notice = Notice::find($notice_id);
+                 event(new NoticePostByAdmin($notice));
 
-                 event(new NoticeAnnouncement($notice,$teacher));
-                    
-                 if ($notices) {
+                 if ($notice_id) {
                  $notification=array(
                  'message'=>'Notice Posted Successfully',
                  'alert-type'=>'success'
@@ -73,13 +67,7 @@ class NoticeController extends Controller
             }
         }else{
         	  $notice = DB::table('notices')
-                         ->insertGetId($data);
-
-              $notice = Notice::find($notices);
-              $teacher = Teacher::find($notice->teacher_id);
-              $user = User::all();
-
-              event(new NoticeAnnouncement($notice,$teacher));
+                         ->insert($data);
               if ($notice) {
                  $notification=array(
                  'message'=>'Notice Posted Successfully',
@@ -97,18 +85,18 @@ class NoticeController extends Controller
     }
 
     public function myNotice($id){
-    	$notices = DB::table('notices')->where('teacher_id',$id)->paginate(4);
-    	return view('teacher/my_notice',compact('notices'));
+    	$notices = DB::table('notices')->where('admin_id',$id)->paginate(4);
+    	return view('admin/my_notices',compact('notices'));
     }
 
-    public function viewNotice($id){
+	public function viewNotice($id){
     	$viewnotices = DB::table('notices')->where('id',$id)->first();
-    	return view('teacher/view_notice',compact('viewnotices'));
+    	return view('admin/view_notices',compact('viewnotices'));
     }
 
     public function allNotice(){
     	$allnotices = DB::table('notices')->paginate(4);
-    	return view('teacher/all_notice',compact('allnotices'));
+    	return view('admin/all_notices',compact('allnotices'));
     }
 
     public function deleteNotice($id){

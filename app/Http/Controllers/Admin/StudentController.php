@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
+use App\Events\StudentRegistration;
+use Illuminate\Support\Facades\Mail;
 use DB;
 use App\Admin;
 use App\User;
@@ -49,9 +51,12 @@ class StudentController extends Controller
             $success=$image->move($upload_path,$image_full_name);
             if ($success) {
                 $data['photo']=$image_url;
-                $student = DB::table('users')
-                         ->insert($data);
-              if ($student) {
+                $student_id = DB::table('users')
+                         ->insertGetId($data);
+
+                $user = User::find($student_id);
+                event(new StudentRegistration($user));
+              if ($student_id) {
                  $notification=array(
                  'message'=>'Student Successfully Added',
                  'alert-type'=>'success'

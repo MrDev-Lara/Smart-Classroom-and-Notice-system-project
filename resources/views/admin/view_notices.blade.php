@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('content')
 
 <div class="content-page">
@@ -8,13 +8,13 @@
             <div class="row">
                
                                 
-                            
+
                                         <div class="col-lg-12">
                                             <div class="panel panel-inverse panel-fill">
                                                 <div class="panel-heading"> 
                                                     @php
-                                                        if($viewnotices->admin_id == null){
-                                                        $teacher = DB::table('teachers')->where('id',$viewnotices->teacher_id)->first();
+                                                         if($viewnotices->admin_id == null){
+                                                         $teacher = DB::table('teachers')->where('id',$viewnotices->teacher_id)->first();
                                                     @endphp
                                                     <h3 class="panel-title"><img class="thumb-md img-circle" src="/{{ $teacher->photo }}"/><span style="margin-left:20px;">{{ $teacher->name }}</span>
                                                     </h3> 
@@ -54,6 +54,5 @@
         </div>
     </div>
 </div>
-
 
 @endsection

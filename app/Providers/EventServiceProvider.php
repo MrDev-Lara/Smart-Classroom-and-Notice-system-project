@@ -27,6 +27,15 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\NoticeAnnouncement' => [
         'App\Listeners\SendNoticeNotification',
         ],
+        'App\Events\StudentRegistration' => [
+        'App\Listeners\SendRegistrationNotificationToStudent',
+        ],
+        'App\Events\TeacherRegistration' => [
+        'App\Listeners\SendRegistrationNotificationToTeacher',
+        ],
+        'App\Events\NoticePostByAdmin' => [
+        'App\Listeners\SendNoticePostNotificationToStudent',
+        ],
     ];
 
     /**

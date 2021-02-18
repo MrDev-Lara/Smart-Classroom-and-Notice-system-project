@@ -13,10 +13,19 @@
                                             <div class="panel panel-inverse panel-fill">
                                                 <div class="panel-heading"> 
                                                     @php
+                                                        if($allnotice->admin_id == null){
                                                         $teacher = DB::table('teachers')->where('id',$allnotice->teacher_id)->first();
                                                     @endphp
                                                     <h3 class="panel-title"><img class="thumb-md img-circle" src="/{{ $teacher->photo }}"/><span style="margin-left:20px;">{{ $teacher->name }}</span>
                                                     </h3> 
+                                                     @php
+                                                       }else{
+                                                    @endphp
+                                                        <h3 class="panel-title"><img class="thumb-md img-circle" src="{{URL::to('frontend/images/user.png')}}"/><span style="margin-left:20px;">IIUC</span>
+                                                        </h3> 
+                                                    @php
+                                                       }
+                                                    @endphp
                                                     <p style="margin-left: 68px;margin-top: -13px;">Posted at : {{ $allnotice->notice_post_date }} {{ $allnotice->notice_post_time }}</p>
                                                 </div> 
                                                 <div class="panel-body"> 

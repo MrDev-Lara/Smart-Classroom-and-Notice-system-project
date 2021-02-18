@@ -11,7 +11,7 @@ Route::get('/', function () {
 Auth::routes(['register' => false]);
 
 Route::middleware('auth')->group(function() {
-	Route::get('/home', 'HomeController@index')->name('home');
+	Route::get('/student-dashboard', 'HomeController@index')->name('student-dashboard');
 	Route::get('/my-profile', 'StudentController@profile')->name('my-profile');
 	Route::get('/set_skill_set', 'StudentController@setskill')->name('set_skill_set');
 	Route::post('/add-information', 'StudentController@setInformation')->name('add-information');
@@ -43,7 +43,7 @@ Route::namespace('Admin')->prefix('admin')->group(function() {
 
 	Route::middleware('auth:admin')->group(function() {
 		Route::post('logout', 'LoginController@logout')->name('admin.logout');
-		Route::get('home', 'HomeController@index')->name('admin.home');
+		Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
 		
 		//For Student
 		Route::get('add-student', 'StudentController@student')->name('add-student');
@@ -60,6 +60,14 @@ Route::namespace('Admin')->prefix('admin')->group(function() {
 		Route::get('deleteteacher/{id}', 'TeacherController@deleteteacher');
 		Route::get('editteacher/{id}', 'TeacherController@editteacher');
 		Route::post('update-teacher/{id}', 'TeacherController@updateteacher');
+
+		//For Noticea
+		Route::get('post-notices', 'NoticeController@index')->name('post-notices');
+		Route::post('submit-notice', 'NoticeController@submitNotice');
+		Route::get('my-notices/{id}', 'NoticeController@myNotice');
+		Route::get('view-notices/{id}', 'NoticeController@viewNotice');
+		Route::get('all-notices', 'NoticeController@allNotice')->name('all-notices');
+		Route::get('deletenotices/{id}', 'NoticeController@deleteNotice');
 	});
 });
 
@@ -80,7 +88,7 @@ Route::namespace('Teacher')->prefix('teacher')->group(function() {
 
 
 	Route::middleware('auth:teacher')->group(function() {
-		Route::get('home', 'HomeController@index')->name('teacher.home');
+		Route::get('home', 'HomeController@index')->name('home');
 		Route::post('logout', 'LoginController@logout')->name('teacher.logout');
 
 		//Room Routes
